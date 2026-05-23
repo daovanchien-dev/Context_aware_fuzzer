@@ -9,32 +9,15 @@
     ],
     "string": [
       "'",
-      "\"",
       "' OR '1'='1",
       "\" OR \"1\"=\"1"
     ],
     "boolean": [
       "true OR 1=1",
       "false OR 1=1"
-    ],
-    "unknown": [
-      "'",
-      "\""
     ]
   },
   "deep_payloads": {
-    "number": [
-      "1 OR SLEEP(5)",
-      "1 AND SLEEP(5)"
-    ],
-    "string": [
-      "' OR SLEEP(5) --",
-      "\" OR SLEEP(5) --",
-      "' UNION SELECT NULL --"
-    ],
-    "boolean": [
-      "true OR SLEEP(5)"
-    ],
     "error_based": [
       "'",
       "\"",

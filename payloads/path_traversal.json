@@ -1,0 +1,29 @@
+{
+  "family": "path_traversal",
+  "description": "Path traversal payloads",
+  "light_payloads": {
+    "string": [
+      "../test",
+      "..%2ftest",
+      "..\\test"
+    ],
+    "unknown": [
+      "../test"
+    ]
+  },
+  "deep_payloads": {
+    "string": [
+      "../../../../../etc/passwd",
+      "..\\..\\..\\..\\windows\\win.ini",
+      "%2e%2e%2f%2e%2e%2fetc%2fpasswd"
+    ],
+    "unknown": [
+      "../../../../../etc/passwd"
+    ]
+  },
+  "evidence_patterns": [
+    "root:x:",
+    "[extensions]",
+    "boot loader"
+  ]
+}

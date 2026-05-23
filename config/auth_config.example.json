@@ -1,0 +1,16 @@
+{
+  "auth_enabled": false,
+  "auth_type": "bearer",
+  "login_url": "http://localhost:5000/api/login",
+  "method": "POST",
+  "headers": {
+    "Content-Type": "application/json"
+  },
+  "credentials": {
+    "username": "admin",
+    "password": "admin123"
+  },
+  "token_json_path": "access_token",
+  "token_prefix": "Bearer",
+  "auth_header_name": "Authorization"
+}

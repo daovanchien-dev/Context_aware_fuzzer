@@ -1,0 +1,32 @@
+{
+  "family": "command_injection",
+  "description": "Command injection payloads",
+  "light_payloads": {
+    "string": [
+      ";echo test",
+      "&& echo test",
+      "| echo test"
+    ],
+    "unknown": [
+      ";echo test"
+    ]
+  },
+  "deep_payloads": {
+    "string": [
+      ";whoami",
+      "&& whoami",
+      "| whoami",
+      "`whoami`",
+      "$(whoami)"
+    ],
+    "unknown": [
+      ";whoami"
+    ]
+  },
+  "evidence_patterns": [
+    "uid=",
+    "gid=",
+    "root",
+    "administrator"
+  ]
+}

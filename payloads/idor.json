@@ -1,0 +1,45 @@
+{
+  "family": "idor",
+  "description": "IDOR candidate payloads for numeric identifiers",
+  "light_payloads": {
+    "number": [
+      "0",
+      "1",
+      "2",
+      "9999"
+    ],
+    "string": [
+      "0",
+      "1",
+      "2",
+      "9999"
+    ],
+    "unknown": [
+      "1",
+      "2"
+    ]
+  },
+  "deep_payloads": {
+    "number": [
+      "-1",
+      "0",
+      "1",
+      "2",
+      "100",
+      "999999"
+    ],
+    "string": [
+      "-1",
+      "0",
+      "1",
+      "2",
+      "100",
+      "999999"
+    ]
+  },
+  "evidence_patterns": [
+    "user_id",
+    "account_id",
+    "owner_id"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "target_url": "http://localhost:5000/api/users",
+  "method": "GET",
+  "headers": {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+    "User-Agent": "ContextAwareFuzzer/1.0"
+  },
+  "params": {
+    "id": "1"
+  },
+  "json_body": {},
+  "timeout": 10,
+  "verify_ssl": false
+}
