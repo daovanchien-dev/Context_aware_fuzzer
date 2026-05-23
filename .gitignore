@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+.env
+config/target.json
+config/auth_config.json
+reports/*
+!reports/.gitkeep
