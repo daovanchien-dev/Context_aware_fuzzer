@@ -19,10 +19,6 @@ Nhiệm vụ:
     - detected_family
     - evidence
 
-Module này KHÔNG gửi HTTP request.
-Module này KHÔNG fuzzing.
-Module này KHÔNG escalation.
-Module này KHÔNG chấm confidence score.
 """
 
 import logging
@@ -61,7 +57,7 @@ class AnalysisResult:
                 - unknown
 
         evidence:
-            Dict chứa bằng chứng kỹ thuật để Phase 10 chấm điểm.
+            Dict chứa bằng chứng kỹ thuật .
     """
 
     is_suspicious: bool
@@ -86,7 +82,6 @@ class ResponseAnalyzer:
     Response Analyzer.
 
     Contract:
-    ---------
     Input:
         - BaselineProfile
         - UnifiedResponse
@@ -98,7 +93,6 @@ class ResponseAnalyzer:
     Public methods:
         - analyze()
 
-    Các module khác KHÔNG gọi private method.
     """
 
     SQL_ERROR_PATTERNS = [
@@ -158,13 +152,6 @@ class ResponseAnalyzer:
         """
         Khởi tạo ResponseAnalyzer.
 
-        :param length_diff_ratio_threshold:
-            Ngưỡng lệch Content-Length.
-            0.30 nghĩa là lệch trên 30% so với baseline thì đáng nghi.
-
-        :param time_delay_threshold_seconds:
-            Ngưỡng delay tuyệt đối.
-            Nếu fuzzed_response chậm hơn baseline từ 3s trở lên thì đáng nghi.
         """
         self.logger = self._setup_logger()
         self.length_diff_ratio_threshold = length_diff_ratio_threshold
@@ -180,11 +167,6 @@ class ResponseAnalyzer:
         Public method.
 
         Phân tích fuzzed_response bằng cách so với baseline.
-
-        :param baseline: BaselineProfile từ Phase 5
-        :param fuzzed_response: UnifiedResponse từ HTTPClient
-        :param payload: payload đã dùng, nếu có
-        :return: AnalysisResult
         """
         reasons: List[str] = []
         evidence: Dict[str, Any] = self._build_base_evidence(
@@ -365,9 +347,6 @@ class ResponseAnalyzer:
 
         Phát hiện payload có bị reflect lại trong response hay không.
 
-        Lưu ý:
-        - Reflection chưa đủ kết luận XSS.
-        - Nó chỉ là tín hiệu đáng nghi để Phase 9/10 xác minh thêm.
         """
         if not response_text or not payload:
             return False
@@ -525,9 +504,6 @@ if __name__ == "__main__":
     """
     Test nhanh Phase 8.
 
-    Chạy:
-        python core/response_analyzer.py
-
     Test này không cần server localhost.
     Nó tạo baseline giả và fuzzed response giả để kiểm tra logic analyzer.
     """
@@ -568,6 +544,6 @@ if __name__ == "__main__":
         payload="' OR '1'='1"
     )
 
-    print("\n===== Analysis Result =====")
+    print("\n Analysis Result ")
     for key, value in result.to_dict().items():
         print(f"{key}: {value}")

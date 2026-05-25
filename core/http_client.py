@@ -9,9 +9,6 @@ Nhiệm vụ:
 - Không để tool crash khi request lỗi
 - Trả về Unified Response Object thống nhất
 
-Module này KHÔNG xử lý login.
-Module này KHÔNG tự refresh token.
-Auth sẽ được xử lý ở Phase 4.
 """
 
 import logging
@@ -78,9 +75,7 @@ class UnifiedResponse:
         - Logging
         - Report
         - Debug
-        - Module Response Analyzer ở Phase 8
-
-        :return: dict
+        - Module Response Analyzer 
         """
         return {
             "status_code": self.status_code,
@@ -99,7 +94,6 @@ class HTTPClient:
     HTTP Client wrapper.
 
     Contract:
-    ---------
     Input:
         - method
         - url
@@ -120,7 +114,6 @@ class HTTPClient:
         - delete()
         - patch()
 
-    Các module khác KHÔNG gọi private method.
     """
 
     DEFAULT_HEADERS = {
@@ -526,9 +519,6 @@ class HTTPClient:
 if __name__ == "__main__":
     """
     Test nhanh Phase 3.
-
-    Chạy:
-        python core/http_client.py
 
     Điều kiện:
         - config/target.json đã hợp lệ từ Phase 2

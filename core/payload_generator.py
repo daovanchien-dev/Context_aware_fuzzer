@@ -8,9 +8,6 @@ Nhiệm vụ:
 - Có validate nhẹ để payload file sai không làm tool crash
 - Có thể reload payload khi người dùng sửa file
 
-Module này KHÔNG gửi HTTP request.
-Module này KHÔNG fuzzing.
-Module này KHÔNG phân tích response.
 """
 
 import json
@@ -95,7 +92,6 @@ class PayloadGenerator:
     Payload Generator.
 
     Contract:
-    ---------
     Input:
         - payloads/*.json
         - param_type
@@ -109,8 +105,6 @@ class PayloadGenerator:
         - get_light_payloads(param_type)
         - get_deep_payloads(param_type, vulnerability_family)
         - get_payloads_for_injection_point(injection_point)
-
-    Các module khác KHÔNG gọi private method.
     """
 
     DEFAULT_PAYLOAD_DIR = Path("payloads")
@@ -157,7 +151,6 @@ class PayloadGenerator:
 
         Load lại toàn bộ payload JSON từ thư mục payloads/.
 
-        :return: None
         """
         self.payload_db = {}
 
@@ -189,8 +182,6 @@ class PayloadGenerator:
 
         Lấy toàn bộ light payload phù hợp với param_type từ tất cả family.
 
-        :param param_type: number/string/boolean/...
-        :return: List[PayloadItem]
         """
         normalized_type = self._normalize_param_type(param_type)
 
@@ -227,9 +218,6 @@ class PayloadGenerator:
 
         Lấy deep payload theo param_type và vulnerability_family.
 
-        :param param_type: number/string/boolean/...
-        :param vulnerability_family: sqli/xss/path_traversal/...
-        :return: List[PayloadItem]
         """
         normalized_type = self._normalize_param_type(param_type)
         family = self._normalize_family(vulnerability_family)
@@ -269,13 +257,6 @@ class PayloadGenerator:
 
         Sinh light payload phù hợp với một InjectionPoint.
 
-        Logic:
-        - Dựa vào param_type để lấy light payload chung.
-        - Dựa vào risk_tags để ưu tiên family phù hợp.
-        - Nếu không có risk_tags phù hợp thì trả light payload theo param_type từ tất cả family.
-
-        :param injection_point: InjectionPoint từ Phase 6
-        :return: List[PayloadItem]
         """
         param_type = getattr(injection_point, "param_type", "unknown")
         risk_tags = getattr(injection_point, "risk_tags", [])
@@ -323,7 +304,6 @@ class PayloadGenerator:
         Private method.
 
         Load một file payload JSON.
-        Nếu file rỗng hoặc JSON lỗi thì warning, không crash.
         """
         try:
             if file_path.stat().st_size == 0:
@@ -369,9 +349,6 @@ class PayloadGenerator:
 
         Validate nhẹ cấu trúc payload.
 
-        Chấp nhận file có ít nhất một trong:
-            - light_payloads
-            - deep_payloads
         """
         has_light = "light_payloads" in data
         has_deep = "deep_payloads" in data
@@ -397,11 +374,6 @@ class PayloadGenerator:
 
         Lấy payload theo param_type.
 
-        Ưu tiên:
-            1. payload_map[param_type]
-            2. payload_map["string"] nếu param_type không có
-            3. payload_map["unknown"] nếu có
-            4. [] nếu không có gì
         """
         if not isinstance(payload_map, dict):
             return []
@@ -433,7 +405,7 @@ class PayloadGenerator:
         """
         Private method.
 
-        Chuyển risk_tags từ Phase 6 thành danh sách vulnerability family ưu tiên.
+        Chuyển risk_tags thành danh sách vulnerability family ưu tiên.
         """
         families: List[str] = []
 
@@ -534,8 +506,6 @@ if __name__ == "__main__":
     """
     Test nhanh Phase 7.
 
-    Chạy:
-        python core/payload_generator.py
     """
 
     generator = PayloadGenerator()

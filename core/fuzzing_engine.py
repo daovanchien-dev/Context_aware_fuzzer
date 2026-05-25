@@ -14,8 +14,6 @@ Nhiệm vụ:
 - Score confidence
 - Generate report.json và report.html
 
-Module này KHÔNG định nghĩa lại logic của module khác.
-Module này chỉ điều phối.
 """
 
 import copy
@@ -142,7 +140,6 @@ class FuzzingEngine:
     Fuzzing Engine.
 
     Contract:
-    ---------
     Input:
         - config/target.json
         - config/auth_config.json
@@ -156,7 +153,6 @@ class FuzzingEngine:
     Public methods:
         - run()
 
-    Các module khác KHÔNG gọi private method.
     """
 
     def __init__(
@@ -168,16 +164,6 @@ class FuzzingEngine:
         """
         Khởi tạo FuzzingEngine.
 
-        :param max_payloads_per_point:
-            Số light payload tối đa thử trên mỗi InjectionPoint.
-
-        :param max_deep_payloads:
-            Số deep payload tối đa dùng trong EscalationEngine.
-
-        :param max_workers:
-            Số worker xử lý fuzz.
-            Hiện tại mặc định 1 để ổn định và tránh race condition.
-            Có thể tăng sau khi toàn bộ workflow đã ổn định với Demo Lab.
         """
         self.logger = self._setup_logger()
 
@@ -244,7 +230,6 @@ class FuzzingEngine:
 
         Chạy toàn bộ workflow fuzzer.
 
-        :return: FuzzingSummary
         """
         summary = FuzzingSummary(started=True)
 
@@ -693,9 +678,6 @@ class FuzzingEngine:
 if __name__ == "__main__":
     """
     Test nhanh Phase 12.
-
-    Chạy:
-        python core/fuzzing_engine.py
 
     Nếu localhost:5000 chưa chạy:
         - baseline sẽ fail có kiểm soát

@@ -7,11 +7,6 @@ Nhiệm vụ:
 - Sinh reports/report.json
 - Sinh reports/report.html
 - Mỗi finding có curl command để reproduce
-
-Module này KHÔNG gửi HTTP request.
-Module này KHÔNG fuzzing.
-Module này KHÔNG phân tích response.
-Module này KHÔNG chấm điểm.
 """
 
 import json
@@ -583,9 +578,6 @@ if __name__ == "__main__":
     """
     Test nhanh Phase 11.
 
-    Chạy:
-        python core/report_generator.py
-
     Test này không cần server localhost.
     Nó tạo một finding giả hợp lệ để sinh report JSON/HTML.
     """
@@ -648,6 +640,6 @@ if __name__ == "__main__":
         fake_finding
     ])
 
-    print("\n===== Report Generated =====")
+    print("\n Report Generated ")
     print("JSON:", output["json_report"])
     print("HTML:", output["html_report"])

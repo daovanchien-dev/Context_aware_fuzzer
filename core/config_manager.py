@@ -11,8 +11,6 @@ Nhiệm vụ:
 - Validate các field bắt buộc
 - Nếu config lỗi: ghi log và dừng chương trình
 
-Module này KHÔNG thực hiện HTTP request.
-Module này KHÔNG xử lý authentication thật.
 """
 
 import json
@@ -35,7 +33,6 @@ class ConfigManager:
     Singleton Config Manager.
 
     Contract:
-    ---------
     Input:
         - config/target.json
         - config/auth_config.json
@@ -89,12 +86,6 @@ class ConfigManager:
     ):
         """
         Khởi tạo ConfigManager.
-
-        Vì dùng Singleton nên __init__ có thể bị gọi nhiều lần.
-        Biến _initialized giúp tránh load config lặp lại không cần thiết.
-
-        :param target_config_path: đường dẫn file target.json
-        :param auth_config_path: đường dẫn file auth_config.json
         """
         if self._initialized:
             return
@@ -119,9 +110,6 @@ class ConfigManager:
     def _setup_logger(self) -> logging.Logger:
         """
         Tạo logger riêng cho ConfigManager.
-
-        Phase 2 chưa phụ thuộc utils/logger.py để tránh coupling sớm.
-        Sang các phase sau có thể chuẩn hóa logger toàn hệ thống.
         """
         logger = logging.getLogger("ConfigManager")
 
@@ -145,12 +133,6 @@ class ConfigManager:
         Public method.
 
         Reload toàn bộ config từ file.
-
-        Dùng khi:
-        - Người dùng sửa config
-        - Muốn load lại cấu hình mà không restart tool
-
-        :return: None
         """
         target_config = self._load_json_file(self.target_config_path)
         auth_config = self._load_json_file(self.auth_config_path)
@@ -171,15 +153,6 @@ class ConfigManager:
 
         Lấy giá trị config bằng dot-path.
 
-        Ví dụ:
-            config.get("target_url")
-            config.get("method")
-            config.get("auth.login_url")
-            config.get("auth.credentials.username")
-
-        :param key_path: đường dẫn key dạng dot-path
-        :param default: giá trị mặc định nếu không tìm thấy
-        :return: giá trị config hoặc default
         """
         if not key_path or not isinstance(key_path, str):
             return default
@@ -199,13 +172,6 @@ class ConfigManager:
         Public method.
 
         Trả về toàn bộ config đã load.
-
-        Lưu ý:
-        - Trả về bản shallow copy để tránh module khác sửa trực tiếp _config.
-        - Không khuyến khích các module khác phụ thuộc toàn bộ config.
-        - Nên ưu tiên dùng get("key.path").
-
-        :return: dict config
         """
         return dict(self._config)
 
@@ -215,9 +181,6 @@ class ConfigManager:
 
         Load một file JSON và trả về dict.
 
-        :param file_path: đường dẫn file JSON
-        :return: dict nội dung JSON
-        :raises ConfigError: nếu file không tồn tại, JSON lỗi, hoặc root không phải object
         """
         if not file_path.exists():
             raise ConfigError(f"Missing config file: {file_path}")
@@ -251,9 +214,6 @@ class ConfigManager:
             - timeout
             - verify_ssl
 
-        :param config: target config dict
-        :return: None
-        :raises ConfigError: nếu thiếu hoặc sai kiểu dữ liệu
         """
         self._validate_required_fields(
             config=config,
@@ -309,21 +269,6 @@ class ConfigManager:
         Private method.
 
         Validate config/auth_config.json.
-
-        Nếu auth_enabled = false:
-            Không bắt buộc login_url, credentials.
-
-        Nếu auth_enabled = true:
-            Bắt buộc:
-                - auth_type
-                - login_url
-                - method
-                - headers
-                - credentials
-
-        :param config: auth config dict
-        :return: None
-        :raises ConfigError: nếu thiếu hoặc sai kiểu dữ liệu
         """
         if "auth_enabled" not in config:
             raise ConfigError("auth_config.json: missing required field 'auth_enabled'.")
@@ -405,14 +350,6 @@ class ConfigManager:
         Private method.
 
         Validate riêng cho Bearer Token auth.
-
-        Required:
-            - token_json_path
-            - token_prefix
-            - auth_header_name
-
-        :param config: auth config dict
-        :return: None
         """
         required_fields = [
             "token_json_path",
@@ -437,11 +374,6 @@ class ConfigManager:
 
         Validate riêng cho Cookie auth.
 
-        Required:
-            - cookie_name
-
-        :param config: auth config dict
-        :return: None
         """
         required_fields = [
             "cookie_name"
@@ -469,11 +401,6 @@ class ConfigManager:
 
         Kiểm tra danh sách field bắt buộc.
 
-        :param config: dict config cần kiểm tra
-        :param required_fields: danh sách field bắt buộc
-        :param config_name: tên file config để log lỗi dễ hiểu
-        :return: None
-        :raises ConfigError: nếu thiếu field
         """
         missing_fields = [
             field for field in required_fields
@@ -489,9 +416,6 @@ class ConfigManager:
 if __name__ == "__main__":
     """
     Test nhanh Phase 2.
-
-    Chạy:
-        python core/config_manager.py
 
     Nếu config hợp lệ, sẽ in ra vài giá trị mẫu.
     """

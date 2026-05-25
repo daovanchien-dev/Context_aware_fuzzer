@@ -11,9 +11,6 @@ Nhiệm vụ:
 - Có hàm refresh_auth() để login lại
 - Không để lỗi network làm tool crash
 
-Module này KHÔNG fuzzing.
-Module này KHÔNG phân tích response bảo mật.
-Module này KHÔNG tự gửi request target chính.
 """
 
 import json
@@ -69,10 +66,6 @@ class AuthState:
     def to_dict(self) -> Dict[str, Any]:
         """
         Convert AuthState sang dict.
-
-        Lưu ý:
-        - Không nên in token/cookie đầy đủ ra report thật.
-        - Ở đây chỉ phục vụ debug Phase 4.
         """
         return {
             "auth_enabled": self.auth_enabled,
@@ -85,9 +78,6 @@ class AuthState:
         }
 
     def _preview_secret(self, value: Optional[str]) -> Optional[str]:
-        """
-        Chỉ hiển thị một phần token/cookie để tránh lộ secret trên terminal.
-        """
         if not value:
             return None
 
@@ -102,7 +92,6 @@ class AuthManager:
     Auth Manager.
 
     Contract:
-    ---------
     Input:
         - ConfigManager
         - HTTPClient
@@ -113,8 +102,6 @@ class AuthManager:
         - is_auth_error(response: UnifiedResponse) -> bool
         - refresh_auth() -> bool
         - get_auth_state() -> AuthState
-
-    Các module khác KHÔNG gọi private method.
     """
 
     AUTH_ERROR_STATUS_CODES = {401, 403}
@@ -160,9 +147,6 @@ class AuthManager:
 
         Thực hiện login dựa theo auth_config.json.
 
-        :return:
-            True nếu login thành công hoặc auth_enabled = false.
-            False nếu login thất bại.
         """
         if not self.auth_enabled:
             self.state.is_authenticated = True
@@ -216,18 +200,6 @@ class AuthManager:
 
         Gắn thông tin auth vào headers.
 
-        Ví dụ Bearer:
-            {
-                "Authorization": "Bearer eyJ..."
-            }
-
-        Ví dụ Cookie:
-            {
-                "Cookie": "sessionid=abc123"
-            }
-
-        :param headers: headers gốc
-        :return: headers mới đã gắn auth nếu có
         """
         final_headers = dict(headers) if headers else {}
 
@@ -269,7 +241,6 @@ class AuthManager:
         Kiểm tra response có phải lỗi xác thực hay không.
 
         :param response: UnifiedResponse từ HTTPClient
-        :return: True nếu status_code là 401 hoặc 403
         """
         if response is None:
             return False
@@ -282,7 +253,6 @@ class AuthManager:
 
         Login lại khi token/cookie hết hạn.
 
-        :return: True nếu refresh thành công, False nếu thất bại
         """
         if not self.auth_enabled:
             self.logger.info("refresh_auth() skipped because authentication is disabled.")
@@ -300,7 +270,6 @@ class AuthManager:
 
         Trả về trạng thái auth hiện tại.
 
-        :return: AuthState
         """
         return self.state
 
@@ -312,23 +281,6 @@ class AuthManager:
 
         Token được bóc từ JSON body dựa theo token_json_path.
 
-        Ví dụ:
-            token_json_path = "access_token"
-
-            response:
-            {
-                "access_token": "abc"
-            }
-
-        Hoặc nested:
-            token_json_path = "data.access_token"
-
-            response:
-            {
-                "data": {
-                    "access_token": "abc"
-                }
-            }
         """
         token_json_path = self.config.get("auth.token_json_path")
 
@@ -366,10 +318,6 @@ class AuthManager:
         Cách lấy cookie:
         - Ưu tiên lấy từ response.headers['Set-Cookie']
         - Tìm cookie_name trong chuỗi Set-Cookie
-
-        Lưu ý:
-        - HTTPClient hiện trả headers trong UnifiedResponse.
-        - Phase này chưa dùng trực tiếp requests cookie jar để tránh coupling sâu.
         """
         cookie_name = self.config.get("auth.cookie_name")
 
@@ -408,11 +356,6 @@ class AuthManager:
         Private method.
 
         Lấy value từ dict bằng dot-path.
-
-        Ví dụ:
-            data = {"data": {"access_token": "abc"}}
-            dot_path = "data.access_token"
-            => "abc"
         """
         current_value: Any = data
 
@@ -434,10 +377,6 @@ class AuthManager:
 
         Bóc cookie value từ Set-Cookie header.
 
-        Ví dụ:
-            Set-Cookie: sessionid=abc123; Path=/; HttpOnly
-            cookie_name: sessionid
-            => abc123
         """
         if not set_cookie_header or not cookie_name:
             return None
@@ -504,10 +443,7 @@ class AuthManager:
 if __name__ == "__main__":
     """
     Test nhanh Phase 4.
-
-    Chạy:
-        python core/auth_manager.py
-
+    
     Nếu localhost:5000 chưa chạy:
         - Không crash
         - Login thất bại có kiểm soát
@@ -533,7 +469,7 @@ if __name__ == "__main__":
 
     login_success = auth_manager.login()
 
-    print("\n===== Auth Manager Test =====")
+    print("\n Auth Manager Test ")
     print("login_success:", login_success)
     print("auth_state:", auth_manager.get_auth_state().to_dict())
 

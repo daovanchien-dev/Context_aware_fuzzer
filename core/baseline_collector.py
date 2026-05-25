@@ -19,9 +19,6 @@ Nhiệm vụ:
 - Nếu baseline trả về HTTP >= 400 thì ném exception cảnh báo
 - Không để lỗi network làm crash bất ngờ
 
-Module này KHÔNG fuzzing.
-Module này KHÔNG sinh payload.
-Module này KHÔNG phân tích lỗ hổng.
 """
 
 import hashlib
@@ -119,7 +116,6 @@ class BaselineCollector:
     Baseline Collector.
 
     Contract:
-    ---------
     Input:
         - ConfigManager
         - HTTPClient
@@ -132,7 +128,6 @@ class BaselineCollector:
         - collect()
         - collect_once()
 
-    Các module khác KHÔNG gọi private method.
     """
 
     def __init__(
@@ -175,9 +170,6 @@ class BaselineCollector:
         Public method.
 
         Gửi nhiều request sạch và tạo BaselineProfile.
-
-        :return: BaselineProfile
-        :raises BaselineCollectionError: nếu baseline lỗi hoặc HTTP >= 400
         """
         self.logger.info("Starting baseline collection. Sample count: %s", self.sample_count)
 
@@ -219,11 +211,6 @@ class BaselineCollector:
 
         Gửi đúng 1 request sạch đến target endpoint.
 
-        Nếu gặp 401/403:
-            - thử refresh auth một lần
-            - gửi lại request một lần
-
-        :return: UnifiedResponse
         """
         method = self.config.get("method", "GET")
         url = self.config.get("target_url")
@@ -363,9 +350,6 @@ if __name__ == "__main__":
     """
     Test nhanh Phase 5.
 
-    Chạy:
-        python core/baseline_collector.py
-
     Nếu localhost:5000 chưa chạy:
         - Không crash bất ngờ
         - Báo lỗi baseline rõ ràng
@@ -397,10 +381,10 @@ if __name__ == "__main__":
 
         baseline = collector.collect()
 
-        print("\n===== Baseline Profile =====")
+        print("\n Baseline Profile ")
         for key, value in baseline.to_dict().items():
             print(f"{key}: {value}")
 
     except BaselineCollectionError as error:
-        print("\n===== Baseline Collection Failed =====")
+        print("\n Baseline Collection Failed ")
         print("error:", error)

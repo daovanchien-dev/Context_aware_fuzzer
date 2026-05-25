@@ -10,9 +10,6 @@ Nhiệm vụ:
 - Phân tích lại response bằng ResponseAnalyzer
 - Trả về EscalationResult để Phase 10 chấm confidence score
 
-Module này KHÔNG tự fuzz toàn bộ.
-Module này KHÔNG tự chấm điểm confidence.
-Module này KHÔNG sinh report.
 """
 
 import copy
@@ -133,11 +130,10 @@ class EscalationEngine:
     Escalation Engine.
 
     Contract:
-    ---------
     Input:
         - BaselineProfile
         - InjectionPoint
-        - AnalysisResult từ Phase 8
+        - AnalysisResult 
 
     Output:
         - EscalationResult
@@ -145,7 +141,6 @@ class EscalationEngine:
     Public methods:
         - escalate()
 
-    Các module khác KHÔNG gọi private method.
     """
 
     def __init__(
@@ -202,10 +197,6 @@ class EscalationEngine:
 
         Thực hiện escalation nếu initial_analysis đáng nghi.
 
-        :param baseline: BaselineProfile từ Phase 5
-        :param injection_point: InjectionPoint từ Phase 6
-        :param initial_analysis: AnalysisResult từ Phase 8
-        :return: EscalationResult
         """
         if not initial_analysis or not initial_analysis.is_suspicious:
             self.logger.info("Escalation skipped because initial analysis is not suspicious.")
@@ -402,13 +393,6 @@ class EscalationEngine:
 
         Set giá trị trong JSON nested dict.
 
-        Ví dụ:
-            data = {"profile": {"user_id": 1}}
-            path_parts = ["profile", "user_id"]
-            value = "1 OR 1=1"
-
-        Kết quả:
-            data["profile"]["user_id"] = "1 OR 1=1"
         """
         if not path_parts:
             return
@@ -491,10 +475,6 @@ class EscalationEngine:
 
         Xác định escalation có xác nhận được nghi vấn không.
 
-        Logic:
-        - Analysis vẫn suspicious
-        - detected_family trùng family ban đầu hoặc có bằng chứng mạnh
-        - Network error không tính là confirmed
         """
         if response.is_error:
             return False
@@ -536,7 +516,6 @@ class EscalationEngine:
         Private method.
 
         Chọn analysis tốt hơn dựa vào số lượng anomaly reason.
-        Phase 10 sẽ chấm điểm chính thức, ở đây chỉ chọn bản đáng chú ý nhất.
         """
         if current is None:
             return False
@@ -574,13 +553,6 @@ if __name__ == "__main__":
     """
     Test nhanh Phase 9.
 
-    Chạy:
-        python core/escalation_engine.py
-
-    Lưu ý:
-        - Nếu localhost:5000 chưa chạy, request escalation sẽ ConnectionError.
-        - Điều đó vẫn đúng yêu cầu vì tool không crash.
-        - Test thật cần Phase 13 Demo Lab.
     """
 
     try:
@@ -654,10 +626,10 @@ if __name__ == "__main__":
             initial_analysis=fake_initial_analysis
         )
 
-        print("\n===== Escalation Result =====")
+        print("\n Escalation Result ")
         for key, value in result.to_dict().items():
             print(f"{key}: {value}")
 
     except Exception as error:
-        print("\n===== Escalation Engine Test Failed =====")
+        print("\n Escalation Engine Test Failed ")
         print("error:", error)

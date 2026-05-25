@@ -22,9 +22,6 @@ Nhiệm vụ:
     - secret
     - api_key
 
-Module này KHÔNG gửi HTTP request.
-Module này KHÔNG sinh payload.
-Module này KHÔNG fuzzing.
 """
 
 import logging
@@ -95,7 +92,6 @@ class ParameterClassifier:
     Parameter Classifier.
 
     Contract:
-    ---------
     Input:
         - params: dict
         - json_body: dict
@@ -106,7 +102,6 @@ class ParameterClassifier:
     Public methods:
         - classify(params, json_body)
 
-    Các module khác KHÔNG gọi private method.
     """
 
     SENSITIVE_KEYWORDS = {
@@ -173,9 +168,6 @@ class ParameterClassifier:
 
         Phân loại tham số từ query params và JSON body.
 
-        :param params: URL query params
-        :param json_body: JSON body
-        :return: danh sách InjectionPoint
         """
         injection_points: List[InjectionPoint] = []
 
@@ -227,17 +219,6 @@ class ParameterClassifier:
         Duyệt dict và phân loại từng key-value.
         Hỗ trợ JSON lồng nhau.
 
-        Ví dụ:
-            {
-                "user": {
-                    "id": 1,
-                    "name": "admin"
-                }
-            }
-
-        Sẽ sinh:
-            json.user.id
-            json.user.name
         """
         points: List[InjectionPoint] = []
 
@@ -324,12 +305,6 @@ class ParameterClassifier:
 
         Kiểm tra string có giống số không.
 
-        Ví dụ:
-            "1" -> True
-            "12.5" -> True
-            "-10" -> True
-            "001" -> True
-            "abc" -> False
         """
         try:
             float(value)
@@ -365,7 +340,6 @@ class ParameterClassifier:
 
         Gắn risk tag cho InjectionPoint.
 
-        Các tag này giúp Phase 7 chọn payload phù hợp hơn.
         """
         tags: List[str] = []
 
@@ -435,9 +409,6 @@ class ParameterClassifier:
 if __name__ == "__main__":
     """
     Test nhanh Phase 6.
-
-    Chạy:
-        python core/parameter_classifier.py
     """
 
     classifier = ParameterClassifier()
@@ -466,7 +437,7 @@ if __name__ == "__main__":
         json_body=sample_json_body
     )
 
-    print("\n===== Injection Points =====")
+    print("\n Injection Points ")
 
     for point in injection_points:
         print(point.to_dict())

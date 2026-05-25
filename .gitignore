@@ -5,3 +5,5 @@ config/target.json
 config/auth_config.json
 reports/*
 !reports/.gitkeep
+config/target.example.json
+config/auth_config.example.json

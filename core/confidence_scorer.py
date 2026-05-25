@@ -12,11 +12,6 @@ Nhiệm vụ:
     - medium
     - high
     - critical
-
-Module này KHÔNG gửi HTTP request.
-Module này KHÔNG fuzzing.
-Module này KHÔNG escalation.
-Module này KHÔNG sinh report.
 """
 
 import logging
@@ -67,7 +62,7 @@ class ConfidenceResult:
             Lý do cộng/trừ điểm.
 
         evidence:
-            Bằng chứng kỹ thuật phục vụ Phase 11 Report Generator.
+            Bằng chứng kỹ thuật phục vụ  Report Generator.
     """
 
     score: int
@@ -96,10 +91,9 @@ class ConfidenceScorer:
     Confidence Scorer.
 
     Contract:
-    ---------
     Input:
-        - AnalysisResult từ Phase 8
-        - EscalationResult từ Phase 9, optional
+        - AnalysisResult 
+        - EscalationResult , optional
 
     Output:
         - ConfidenceResult
@@ -107,7 +101,6 @@ class ConfidenceScorer:
     Public methods:
         - score()
 
-    Các module khác KHÔNG gọi private method.
     """
 
     DEFAULT_VALID_FINDING_THRESHOLD = 70
@@ -116,9 +109,6 @@ class ConfidenceScorer:
         """
         Khởi tạo ConfidenceScorer.
 
-        :param valid_finding_threshold:
-            Ngưỡng để coi là finding hợp lệ.
-            Mặc định 70.
         """
         self.logger = self._setup_logger()
 
@@ -140,9 +130,6 @@ class ConfidenceScorer:
 
         Chấm điểm dựa trên evidence từ AnalysisResult và EscalationResult.
 
-        :param analysis_result: kết quả phân tích từ Phase 8
-        :param escalation_result: kết quả escalation từ Phase 9, nếu có
-        :return: ConfidenceResult
         """
         if analysis_result is None:
             return self._build_result(
@@ -213,7 +200,7 @@ class ConfidenceScorer:
         """
         Private method.
 
-        Chấm điểm dựa trên evidence của Phase 8.
+        Chấm điểm .
         """
         score = 0
         reasons: List[str] = []
@@ -287,7 +274,7 @@ class ConfidenceScorer:
         """
         Private method.
 
-        Chấm điểm dựa trên kết quả Phase 9.
+        Chấm điểm.
         """
         score = 0
         reasons: List[str] = []
@@ -447,10 +434,6 @@ if __name__ == "__main__":
     """
     Test nhanh Phase 10.
 
-    Chạy:
-        python core/confidence_scorer.py
-
-    Test này không cần server localhost.
     """
 
     fake_analysis = AnalysisResult(

@@ -22,9 +22,6 @@ Endpoints:
     GET /api/files?path=readme.txt
         - Endpoint chứa path traversal demo
 
-Lưu ý:
-- Đây là app demo local cố ý có lỗi.
-- Không deploy public.
 """
 
 from flask import Flask, request, jsonify, make_response
