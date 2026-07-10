@@ -182,7 +182,7 @@ class EscalationEngine:
         self.response_analyzer = response_analyzer if response_analyzer else ResponseAnalyzer()
 
         if not isinstance(max_deep_payloads, int) or max_deep_payloads <= 0:
-            max_deep_payloads = 3
+            max_deep_payloads = 5
 
         self.max_deep_payloads = max_deep_payloads
 

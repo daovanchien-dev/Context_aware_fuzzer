@@ -64,7 +64,7 @@ def main():
 
     summary = engine.run()
 
-    print("\n===== Context-Aware Fuzzer Summary =====")
+    print("\n Context-Aware Fuzzer Summary ")
 
     for key, value in summary.to_dict().items():
         print(f"{key}: {value}")

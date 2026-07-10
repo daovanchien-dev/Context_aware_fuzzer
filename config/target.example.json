@@ -13,3 +13,79 @@
   "timeout": 10,
   "verify_ssl": false
 }
+
+
+{
+  "target_url": "http://localhost:5000/api/search",
+  "method": "GET",
+  "headers": {
+    "Accept": "text/html",
+    "Content-Type": "application/json",
+    "User-Agent": "ContextAwareFuzzer/1.0"
+  },
+  "params": {
+    "q": "hello"
+  },
+  "json_body": {},
+  "timeout": 10,
+  "verify_ssl": false
+}
+
+{
+  "target_url": "http://localhost:5000/api/files",
+  "method": "GET",
+  "headers": {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+    "User-Agent": "ContextAwareFuzzer/1.0"
+  },
+  "params": {
+    "path": "readme.txt"
+  },
+  "json_body": {},
+  "timeout": 10,
+  "verify_ssl": false
+}
+
+{
+  "target_url": "http://localhost:3000/rest/products/search",
+  "method": "GET",
+  "headers": {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+    "User-Agent": "ContextAwareFuzzer/1.0"
+  },
+  "params": {
+    "q": "apple"
+  },
+  "json_body": {},
+  "timeout": 10,
+  "verify_ssl": false
+}
+
+{
+  "target_url": "http://localhost:3000/rest/products/1/reviews",
+  "method": "GET",
+  "headers": {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+    "User-Agent": "ContextAwareFuzzer/1.0"
+  },
+  "params": {},
+  "json_body": {},
+  "timeout": 10,
+  "verify_ssl": false
+}
+
+{
+  "target_url": "http://localhost:3000/rest/user/whoami",
+  "method": "GET",
+  "headers": {
+    "Accept": "application/json",
+    "User-Agent": "ContextAwareFuzzer/1.0"
+  },
+  "params": {},
+  "json_body": {},
+  "timeout": 10,
+  "verify_ssl": false
+}

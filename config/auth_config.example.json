@@ -1,5 +1,5 @@
 {
-  "auth_enabled": false,
+  "auth_enabled": true,
   "auth_type": "bearer",
   "login_url": "http://localhost:5000/api/login",
   "method": "POST",
@@ -11,6 +11,23 @@
     "password": "admin123"
   },
   "token_json_path": "access_token",
+  "token_prefix": "Bearer",
+  "auth_header_name": "Authorization"
+}
+
+{
+  "auth_enabled": true,
+  "auth_type": "bearer",
+  "login_url": "http://localhost:3000/rest/user/login",
+  "method": "POST",
+  "headers": {
+    "Content-Type": "application/json"
+  },
+  "credentials": {
+    "email": "admin@juice-sh.op",
+    "password": "admin123"
+  },
+  "token_json_path": "authentication.token",
   "token_prefix": "Bearer",
   "auth_header_name": "Authorization"
 }
